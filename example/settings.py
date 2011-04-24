@@ -1,6 +1,7 @@
-# Django settings for cms project.
+# -*- coding: utf-8 -*-
 import os
-PROJECT_DIR = os.path.dirname(__file__)
+gettext = lambda s: s
+PROJECT_PATH = os.path.abspath(os.path.dirname(__file__))
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -12,8 +13,14 @@ CACHE_BACKEND = 'locmem:///'
 
 MANAGERS = ADMINS
 
-DATABASE_ENGINE = 'sqlite3'
-DATABASE_NAME = 'cms.sqlite'
+DATABASES = {
+    'default': {
+        'NAME': 'database.sqlite',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'USER': '',
+        'PASSWORD': ''
+    },
+}
 
 TEST_DATABASE_CHARSET = "utf8"
 TEST_DATABASE_COLLATION = "utf8_general_ci"
@@ -24,16 +31,11 @@ TIME_ZONE = 'America/Chicago'
 
 SITE_ID = 1
 
-USE_I18N = True
+USE_I18N = False
 
-MEDIA_ROOT = os.path.join(PROJECT_DIR, 'media/')
-
-CMS_MEDIA_ROOT = os.path.join(PROJECT_DIR, '../cms/media/cms/')
-MEDIA_URL = '/media/'
-
-ADMIN_MEDIA_PREFIX = '/media/admin/'
-
-FIXTURE_DIRS = [os.path.join(PROJECT_DIR, 'fixtures')]
+MEDIA_ROOT = os.path.join(PROJECT_PATH, "media")
+MEDIA_URL = "/media/"
+ADMIN_MEDIA_PREFIX= "/media/admin/"
 
 SECRET_KEY = '*xq7m@)*f2awoj!spa0(jibsrz9%c0d=e(g)v*!17y(vx0ue_3'
 
@@ -50,21 +52,20 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.request",
     "django.core.context_processors.media",
     'django.core.context_processors.csrf',
-    "cms.context_processors.media",
+    'cms.context_processors.media',
+    'sekizai.context_processors.sekizai',
 )
 
 INTERNAL_IPS = ('127.0.0.1',)
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'cms.middleware.multilingual.MultilingualURLMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.doc.XViewMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'cms.middleware.media.PlaceholderMediaMiddleware', 
-    'cms.middleware.user.CurrentUserMiddleware',
     'cms.middleware.page.CurrentPageMiddleware',
+    'cms.middleware.user.CurrentUserMiddleware',
     'cms.middleware.toolbar.ToolbarMiddleware',
 )
 
@@ -76,7 +77,7 @@ ROOT_URLCONF = 'example.urls'
 
 
 TEMPLATE_DIRS = (
-    os.path.join(PROJECT_DIR, 'templates'),
+    os.path.join(PROJECT_PATH, "templates"),
 )
 
 INSTALLED_APPS = (
@@ -100,7 +101,9 @@ INSTALLED_APPS = (
     'cms.plugins.inherit',
     'mptt',
     'example.sampleapp',
-    'south'
+    'south',
+    'sekizai',
+    'appmedia',
 )
 
 gettext = lambda s: s
@@ -108,21 +111,20 @@ gettext = lambda s: s
 LANGUAGE_CODE = "en"
 
 LANGUAGES = (
-    ('fr', gettext('French')),
-    ('de', gettext('German')),
     ('en', gettext('English')),
-    ('pt-BR', gettext("Brazil")),
 )
 
-CMS_LANGUAGE_CONF = {
-    'de':['fr', 'en'],
-    'en':['fr', 'de'],
-}
+#CMS_LANGUAGE_CONF = {
+#    'de':['fr', 'en'],
+#    'en':['fr', 'de'],
+#}
 
-CMS_SITE_LANGUAGES = {
-    1:['fr','de','en','pt-BR'],
-    2:['de','en'],
-}
+#CMS_SITE_LANGUAGES = {
+#    1:['fr','de','en','pt-BR'],
+#    2:['de','en'],
+#}
+
+#CMS_LANGUAGES = (('en','en'),)
 
 APPEND_SLASH = True
 
