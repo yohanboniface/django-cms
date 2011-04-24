@@ -54,6 +54,8 @@ jQuery(document).ready(function ($) {
 			this.overlay = this.wrapper.find('#cms_placeholder-overlay');
 			this.overlayIsHidden = false;
 			this.success = this.wrapper.find('#cms_placeholder-success');
+			this.reduce = this.wrapper.find('#reduce_button');
+			this.reduced_mode = false;
 
 			// attach event handling to placeholder buttons and overlay if editmode is active
 			if(this.options.edit_mode) {
@@ -86,6 +88,11 @@ jQuery(document).ready(function ($) {
 			// bind overlay event
 			this.overlay.bind('mouseleave', function () {
 				classy._hideOverlay();
+			});
+
+			// bind reduce event
+			this.reduce.bind('click', function () {
+				classy._reducePlugins();
 			});
 			// this is for testing
 			this.overlay.find('.cms_placeholder-overlay_bg').bind('click', function () {
@@ -551,7 +558,18 @@ jQuery(document).ready(function ($) {
 			this.dim.css('opcaity', 0.6).stop().fadeOut();
 			// remove dim event
 			this.dim.unbind('click');
-		}
-		
+		},
+        // reduce plugins
+        _reducePlugins: function () {
+            console.log("enter in function");
+            if (this.reduced_mode) {
+                $('.cms_plugin_reduced').hide();
+                $('.cms_plugin_extended').show();
+            } else {
+                $('.cms_plugin_reduced').show();
+                $('.cms_plugin_extended').hide();
+            }
+            this.reduced_mode = !this.reduced_mode;
+        }
 	});
 });

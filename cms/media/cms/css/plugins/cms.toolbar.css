@@ -82,6 +82,12 @@
 .cms_toolbar-item_moderator { padding-top:8px !important; }
 .cms_toolbar-item_moderator a span { color:#f00 !important; }
 
+/* #TOOLBAR/reduce mode - FIXME : should we add this for each new button ? */
+.cms_toolbar-item_reduce { padding-top:8px !important; }
+/* FIXME : could a real graphist make a cool CSS here ? */
+.cms_plugin_reduced {
+display: none; height : 40px; line-height: 35px; overflow : hidden; background-color: #fff; border:1px dotted #c5c5c5; color: #5B80B2; padding: 5px 0 0 10px; margin-top: 2px;}
+
 /* #TOOLBAR/list# */
 .cms_toolbar-item_list { display:none; list-style:none; padding:0; margin:0; position:absolute; top:35px; z-index:100; border:1px solid #ddd; background:#fff !important;
 	-webkit-border-radius:5px; -moz-border-radius:5px; border-radius:5px; }

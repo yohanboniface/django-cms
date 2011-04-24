@@ -97,6 +97,10 @@ class CMSToolbar(Toolbar):
                 items.append(
                     GetButton(RIGHT, 'moderator', label, urlgetter)
                 )
+            # Reduce / expend mode, allways here is is_staff member
+            items.append(
+                TemplateHTML(RIGHT, 'reduce', 'cms/toolbar/items/reduce.html')
+            )
             
             items.append(
                 GetButton(RIGHT, 'logout', _('Logout'), '?cms-toolbar-logout',
