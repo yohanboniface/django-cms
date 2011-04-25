@@ -561,7 +561,6 @@ jQuery(document).ready(function ($) {
 		},
         // reduce plugins
         _reducePlugins: function () {
-            console.log("enter in function");
             if (this.reduced_mode) {
                 $('.cms_plugin_reduced').hide();
                 $('.cms_plugin_extended').show();
