@@ -131,9 +131,17 @@ def render_placeholder(placeholder, context_to_copy, name_fallback="Placeholder"
     c.extend(render_plugins(plugins, context, placeholder, processors))
     content = "".join(c)
     if edit:
+        content = make_plugins_sortable(content)
         content = render_placeholder_toolbar(placeholder, context, content, name_fallback)
     context.pop()
     return content
+
+def make_plugins_sortable(content):
+    """
+    Add HTML to make the plugins sortable.
+    """
+    c = {"rendered_content": content}
+    return render_to_string("cms/toolbar/sortable.html", c)
 
 def render_placeholder_toolbar(placeholder, context, content, name_fallback=None):
     from cms.plugin_pool import plugin_pool

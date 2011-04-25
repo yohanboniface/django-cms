@@ -88,6 +88,13 @@
 .cms_plugin_reduced {
 display: none; height : 40px; line-height: 35px; overflow : hidden; background-color: #fff; border:1px dotted #c5c5c5; color: #5B80B2; padding: 5px 0 0 10px; margin-top: 2px;}
 
+/* PLUGINS : sortable */
+/* Will be applied to the otherwise white space */
+.cms_plugin_drag_placeholder {border:2px dashed #5B80B2;}
+/* As we insert the overlay in the plugin wrapper, it needs a position:relative */
+/* FIXME check the name of the class (placeholder ??) */
+.cms_placeholder {position: relative;}
+
 /* #TOOLBAR/list# */
 .cms_toolbar-item_list { display:none; list-style:none; padding:0; margin:0; position:absolute; top:35px; z-index:100; border:1px solid #ddd; background:#fff !important;
 	-webkit-border-radius:5px; -moz-border-radius:5px; border-radius:5px; }

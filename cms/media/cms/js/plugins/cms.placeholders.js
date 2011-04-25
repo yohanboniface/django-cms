@@ -89,11 +89,14 @@ jQuery(document).ready(function ($) {
 			this.overlay.bind('mouseleave', function () {
 				classy._hideOverlay();
 			});
-
+            
 			// bind reduce event
 			this.reduce.bind('click', function () {
 				classy._reducePlugins();
 			});
+			
+			// Make plugins sortable
+			this._makePluginsSortable();
 			// this is for testing
 			this.overlay.find('.cms_placeholder-overlay_bg').bind('click', function () {
 				classy._hideOverlay();
@@ -438,12 +441,13 @@ jQuery(document).ready(function ($) {
 		},
 		
 		_showOverlay: function (holder) {
+		    // To make possible dragging with the overlay
+		    // we insert it in the plugin node
+		    this.overlay.insertAfter(holder.children(':last'));
 			// lets place the overlay
 			this.overlay.css({
 				'width': holder.width()-2,
-				'height': holder.height()-2,
-				'left': holder.offset().left,
-				'top': holder.offset().top
+				'height': holder.height()-2
 			}).show();
 		},
 		
@@ -569,6 +573,21 @@ jQuery(document).ready(function ($) {
                 $('.cms_plugin_extended').hide();
             }
             this.reduced_mode = !this.reduced_mode;
+        },
+        //Make plugins sortable
+        _makePluginsSortable: function () {
+            $('.plugins_sortable').sortable({
+                axis: 'y',
+                containment: 'parent',
+                cursor: 'move',
+                placeholder: 'cms_plugin_drag_placeholder',
+                forcePlaceholderSize: true,
+                handle: '.cms_placeholder-overlay_bg',
+                tolerance: 'pointer',
+                update: function(event, ui) {
+                    // TODO
+                }
+        }).disableSelection();
         }
 	});
 });
