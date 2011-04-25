@@ -300,7 +300,7 @@ jQuery(document).ready(function ($) {
 			var index = holders.index(plugin);
 			var bound = holders.length;
 
-			// if the there is only 1 element, we dont need to move anything
+			// if there is only 1 element, we dont need to move anything
 			if(bound <= 1) {
 				alert(this.options.lang.move_warning);
 				return false;
@@ -576,6 +576,7 @@ jQuery(document).ready(function ($) {
         },
         //Make plugins sortable
         _makePluginsSortable: function () {
+            var classy = this
             $('.plugins_sortable').sortable({
                 axis: 'y',
                 containment: 'parent',
@@ -585,7 +586,30 @@ jQuery(document).ready(function ($) {
                 handle: '.cms_placeholder-overlay_bg',
                 tolerance: 'pointer',
                 update: function(event, ui) {
-                    // TODO
+                    // Get the plugins
+                    // (As no id is populated, we can't use .sortable("toArray")
+                    var holders = $(this).sortable("widget").children()
+                    // Array for the final ordered plugins ids
+		            var ids = [];
+    		        holders.each(function (index, item) {
+				        ids.push($(item).attr('class').split('::')[1]);
+			        });
+                    console.log(ids)
+                    
+                    // DRY ALERT !!!!!!!!
+			        // now lets do the ajax request
+			        // Store current action handler
+			        var cur = $(this);
+			        $.ajax({
+				        'type': 'POST',
+				        'url': classy.options.urls.cms_page_move_plugin,
+				        'data': { 'ids': ids.join('_') },
+//				        'success': refreshPluginPosition,
+				        'error': function () {
+				            cur.sortable("cancel");
+					        log('CMS.Placeholders was unable to perform this ajax request. Try again or contact the developers.');
+				        }
+			        });
                 }
         }).disableSelection();
         }
