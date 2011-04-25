@@ -122,8 +122,9 @@ def render_placeholder(placeholder, context_to_copy, name_fallback="Placeholder"
         and (not page or page.has_change_permission(request))):
             edit = True
     if edit:
-        from cms.middleware.toolbar import toolbar_plugin_processor
-        processors = (toolbar_plugin_processor,)
+        from cms.middleware.toolbar import toolbar_plugin_processor,\
+                                                         plugin_reduce_processor
+        processors = (plugin_reduce_processor, toolbar_plugin_processor,)
     else:
         processors = None 
 

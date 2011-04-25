@@ -30,6 +30,16 @@ def toolbar_plugin_processor(instance, placeholder, rendered_content, original_c
     }
     return render_to_string('cms/toolbar/placeholder_wrapper.html', data)
 
+def plugin_reduce_processor(instance, placeholder, rendered_content, original_context):
+    """
+    Add some HTML to make the reduce/expend feature possible.
+    """
+    data = {
+        'instance': instance,
+        'rendered_content': rendered_content
+    }
+    return render_to_string('cms/toolbar/plugin_reduce_wrapper.html', data)
+
 def _patch(data, request):
     match = BODY_RE.search(data)
     if not match:
